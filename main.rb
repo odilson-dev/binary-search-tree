@@ -65,9 +65,15 @@ class Tree
         end
         node
     end
+
+    def find(value, node = root)
+        return node if node.nil? or node.data == value 
+        
+        value < node.data ? find(value, node.left) : find(value, node.right)
+        
+    end
 end
 
 
-binary_tree = Tree.new([1, 2, 3, 4, 5])
-binary_tree.delete(2)
-p binary_tree.root
+binary_tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 90])
+p binary_tree.find(8)
