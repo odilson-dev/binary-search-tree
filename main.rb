@@ -1,3 +1,4 @@
+# require 'queue'
 class Node
     include Comparable
     attr_accessor :data, :left, :right
@@ -72,8 +73,22 @@ class Tree
         value < node.data ? find(value, node.left) : find(value, node.right)
         
     end
+    # Binary tree - Level Order Traversal
+
+    def level_order(node = root, queue = [])
+        print "#{node.data} "
+        queue << node.left unless node.left.nil?
+        queue << node.right unless node.right.nil?
+        return if queue.empty?
+    
+        level_order(queue.shift, queue)
+    end
+
+
+
+
 end
 
 
-binary_tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 90])
-p binary_tree.find(8)
+binary_tree = Tree.new([1, 2, 3, 4, 5])
+binary_tree.level_order
