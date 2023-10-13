@@ -120,9 +120,25 @@ class Tree
         end
     end
 
+    def depth(node = root, parent = root, edges = 0)
+        return 0 if node == parent
+        return -1 if parent.nil?
+    
+        if node < parent.data
+          edges += 1
+          depth(node, parent.left, edges)
+        elsif node > parent.data
+          edges += 1
+          depth(node, parent.right, edges)
+        else
+          edges
+        end
+      end
+    
+
 end
 
 
-binary_tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 15, 16, 17, 18, 19])
+binary_tree = Tree.new([1, 2, 3, 4, 5,])
 
-p binary_tree.height
+p binary_tree.depth()
