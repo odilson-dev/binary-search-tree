@@ -110,11 +110,19 @@ class Tree
         print "#{node.data} "
       end
 
-
-
+      def height(node=root)
+        if node.nil?
+            return 0
+        else
+            left_height = height(node.left)
+            right_height = height(node.right)
+            return [left_height, right_height].max + 1
+        end
+    end
 
 end
 
 
-binary_tree = Tree.new([1, 2, 3, 4, 5])
-binary_tree.postorder
+binary_tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 15, 16, 17, 18, 19])
+
+p binary_tree.height
