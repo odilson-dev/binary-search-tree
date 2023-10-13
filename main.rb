@@ -147,6 +147,11 @@ class Tree
       end
     
       # balances an unbalanced tree
+      def rebalance
+        self.data = inorder_array
+        self.root = build_tree(data)
+      end
+    
     
     
 
