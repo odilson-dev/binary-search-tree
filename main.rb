@@ -151,13 +151,76 @@ class Tree
         self.data = inorder_array
         self.root = build_tree(data)
       end
+       # visualize binary search tree, method by student on Discord
+
+      def pretty_print(node = root, prefix = '', is_left = true)
+        pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+        puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+        pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
+      end
+
+      private
+
+      # helper method that finds the leftmost leaf
+
+      def leftmost_leaf(node)
+        node = node.left until node.left.nil?
+
+        node
+      end
+
+      # create inorder array of tree
+
+      def inorder_array(node = root, array = [])
+        unless node.nil?
+          inorder_array(node.left, array)
+          array << node.data
+          inorder_array(node.right, array)
+        end
+        array
+      end
     
     
     
 
 end
 
+# Create a binary search tree from an array of random numbers (Array.new(15) { rand(1..100) })
 
-binary_tree = Tree.new([1, 2, 3, 4, 5,])
+binary_tree = Tree.new((Array.new(15) { rand(1..100) }))
 
-p binary_tree.depth()
+# Confirm that the tree is balanced by calling #balanced?
+p binary_tree.balanced?
+
+
+# Print out all elements in level, pre, post, and in order
+
+p binary_tree.level_order
+p binary_tree.preorder
+p binary_tree.inorder
+p binary_tree.postorder
+
+# Unbalance the tree by adding several numbers > 100
+10.times do
+  a = rand(100...200)
+  binary_tree.insert(a)
+  puts "Inserted #{a} to tree."
+end
+
+
+# Confirm that the tree is unbalanced by calling #balanced?
+p binary_tree.balanced?
+
+# Balance the tree by calling #rebalance
+binary_tree.rebalance
+
+# Confirm that the tree is balanced by calling #balanced?
+
+p binary_tree.balanced?
+
+# Print out all elements in level, pre, post, and in order
+
+p binary_tree.level_order
+p binary_tree.preorder
+p binary_tree.inorder
+p binary_tree.postorder
